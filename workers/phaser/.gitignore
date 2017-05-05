@@ -1,0 +1,10 @@
+.spatialos
+build/
+dependencies/
+node_modules/
+
+package.json
+webpack.config.js
+src/generated
+
+spatialos.javascript.build.json
