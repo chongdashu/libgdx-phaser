@@ -1,4 +1,5 @@
 const sdk = require("spatialos_worker_sdk");
+require('jquery');
 
 
 let locatorParameters = new sdk.LocatorParameters();
@@ -36,7 +37,6 @@ locator.getDeploymentList((err, deploymentList) => {
 });
 
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  // Code which depends on the HTML DOM content.
-  console.log("Hello World!");
-});
+$(document).ready(function() {
+  console.log("Hello, Phaser-Spatial");
+})
