@@ -1,3 +1,27 @@
+### 18-May 2017
+
+- Trying to wrap my head around all this NPM and WebPack stuff.
+- Starting small, going to try to get jQuery working.
+- Tried to add it to package.json.
+  ```
+  "dependencies": {
+    "google-protobuf": "3.2.0",
+    "spatialos_worker_sdk": "file:./dependencies/javascript_sdk/",
+    "jquery": "3.2.1"
+  },
+  ```
+- Got overwritten by generated build scripts. Removed the automated build scripts in `spatialos.PhaerClient.worker.json`.
+- Tried to add `$(document).ready(function(){});` to `index.js` -- started giving errors.
+- Turns out to make use of global vars like `$`, need to add as a plugin in `webpack.config.js`:
+  ```
+  plugins: [
+    new webpack.ProvidePlugin({
+           $: "jquery",
+           jQuery: "jquery"
+       })
+  ],
+  ```
+
 ### 05-May 2017
 
 - Now getting:
