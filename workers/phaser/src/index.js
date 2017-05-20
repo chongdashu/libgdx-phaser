@@ -1,5 +1,7 @@
 const sdk = require("spatialos_worker_sdk");
-require('jquery');
+window.PIXI   = require('phaser-ce/build/custom/pixi');
+window.p2     = require('phaser-ce/build/custom/p2');
+window.Phaser = require('phaser-ce/build/custom/phaser-split');
 
 
 let locatorParameters = new sdk.LocatorParameters();
@@ -36,7 +38,12 @@ locator.getDeploymentList((err, deploymentList) => {
     });
 });
 
+var game = null;
+var GLOBAL_GAME_WIDTH = 640;
+var GLOBAL_GAME_HEIGHT = 480;
 
 $(document).ready(function() {
   console.log("Hello, Phaser-Spatial");
-})
+
+  game = new Phaser.Game(GLOBAL_GAME_WIDTH, GLOBAL_GAME_HEIGHT);
+});

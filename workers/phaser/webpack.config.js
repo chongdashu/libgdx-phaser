@@ -4,6 +4,11 @@ const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 
+const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
+const phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
+const pixi = path.join(phaserModule, 'build/custom/pixi.js')
+const p2 = path.join(phaserModule, 'build/custom/p2.js')
+
 const REGEX = {
   js: /\.js$/,
   ts: /\.tsx?$/,
@@ -41,6 +46,11 @@ module.exports = {
        })
   ],
   resolve: {
-    extensions: ["", ".js"]
+    extensions: ["", ".js"],
+    alias: {
+      'phaser': phaser,
+      'pixi': pixi,
+      'p2': p2
+    }
   }
 };

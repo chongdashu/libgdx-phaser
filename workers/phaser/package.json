@@ -9,7 +9,8 @@
   "dependencies": {
     "google-protobuf": "3.2.0",
     "spatialos_worker_sdk": "file:./dependencies/javascript_sdk/",
-    "jquery": "3.2.1"
+    "jquery": "3.2.1",
+    "phaser-ce": "2.7.9"
   },
   "devDependencies": {
     "babel": "6.23.0",

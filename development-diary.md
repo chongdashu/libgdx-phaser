@@ -1,3 +1,50 @@
+### 20-May 2017
+
+- Trying to get Phaser working in the same way as I did jQuery.
+- Digging around this is what was needed:
+- Add the following to `webpack.config.js`:
+  ```
+  const phaserModule = path.join(__dirname, '/node_modules/phaser-ce/')
+  const phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
+  const pixi = path.join(phaserModule, 'build/custom/pixi.js')
+  const p2 = path.join(phaserModule, 'build/custom/p2.js')
+  ```
+- Add the following to the `resolve` element of `webpack.config.js`:
+  ```
+  resolve: {
+    extensions: ["", ".js"],
+    alias: {
+      'phaser': phaser,
+      'pixi': pixi,
+      'p2': p2
+    }
+  }
+  ```
+- Add the following to `src/index.js` -- the entry point:
+  ```
+  window.PIXI   = require('phaser-ce/build/custom/pixi');
+  window.p2     = require('phaser-ce/build/custom/p2');
+  window.Phaser = require('phaser-ce/build/custom/phaser-split');
+  ```
+- Then, to test it, I added the simple logic to create a Phaser game instance
+  ```
+  var GLOBAL_GAME_WIDTH = 640;
+  var GLOBAL_GAME_HEIGHT = 480;
+  $(document).ready(function() {
+    console.log("Hello, Phaser-Spatial");
+    game = new Phaser.Game(GLOBAL_GAME_WIDTH, GLOBAL_GAME_HEIGHT);
+  });
+  ```
+- A boo-boo I did was to add `Phaser` as a plugin in `webpack.config.js` as I did for jQuery. It messed things up with errors in PIXI where it complained that `Phaser.Filter` was not a constructor.
+
+- Here is the end result!
+
+![Phaser running for the first time](docs/img/first-time-phaser-loaded.png)
+
+- References:
+  * https://github.com/photonstorm/phaser/issues/1974#issuecomment-186923141
+  * https://github.com/lean/phaser-es6-webpack/blob/master/webpack.config.js
+
 ### 18-May 2017
 
 - Trying to wrap my head around all this NPM and WebPack stuff.
@@ -10,7 +57,7 @@
     "jquery": "3.2.1"
   },
   ```
-- Got overwritten by generated build scripts. Removed the automated build scripts in `spatialos.PhaerClient.worker.json`.
+- Got overwritten by generated build scripts. Removed the automated build scripts in `spatialos.PhaserClient.worker.json`.
 - Tried to add `$(document).ready(function(){});` to `index.js` -- started giving errors.
 - Turns out to make use of global vars like `$`, need to add as a plugin in `webpack.config.js`:
   ```
